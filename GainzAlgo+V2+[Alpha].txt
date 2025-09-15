@@ -1,9 +1,9 @@
-// © GainzAlgo
+// © scalping
 
 //@version=5
-indicator('GainzAlgo V2 [Alpha]', overlay=true, max_labels_count=500)
+indicator(buy sell signal]', overlay=true, max_labels_count=500)
 
-show_tp_sl = input.bool(true, 'Display TP & SL', group='Techical', tooltip='Display the exact TP & SL price levels for BUY & SELL signals.')
+show_tp_sl = input.bool(true, 'Display TP & SL', group='Techical', tooltip='Display the exact T
 rrr = input.string('1:2', 'Risk to Reward Ratio', group='Techical', options=['1:1', '2:3', '1:2', '1:4'], tooltip='Set a risk to reward ratio (RRR).')
 tp_sl_multi = input.float(1, 'TP & SL Multiplier', 1, group='Techical',  tooltip='Multiplies both TP and SL by a chosen index. Higher - higher risk.')
 tp_sl_prec = input.int(2, 'TP & SL Precision', 0, group='Techical')
@@ -11,9 +11,7 @@ tp_sl_prec = input.int(2, 'TP & SL Precision', 0, group='Techical')
 candle_stability_index_param = 0.7
 rsi_index_param = 80
 candle_delta_length_param  = 10
-disable_repeating_signals_param = input.bool(true, 'Disable Repeating Signals', group='Techical', tooltip='Removes repeating signals. Useful for removing clusters of signals and general clarity.')
-
-GREEN = color.rgb(29, 255, 40)
+disable_repeating_signals_param = input.bool(true, 'Disable Repeating Signals', group='Techical', tooltip='Removes repeating signals. Useful for removing clusters of signals and general clarity0)
 RED = color.rgb(255, 0, 0)
 TRANSPARENT = color.rgb(0, 0, 0, 100)
 
@@ -45,8 +43,7 @@ increase_over = close > close[candle_delta_length_param]
 bear_state = bearish_engulfing and stable_candle and rsi_above and increase_over and barstate.isconfirmed
 bear = bear_state and (disable_repeating_signals_param ? (last_signal != 'sell' ? true : na) : true)
 
-round_up(number, decimals) =>
-    factor = math.pow(10, decimals)
+round_up(number, decimals) 
     math.ceil(number * factor) / factor
 
 if bull
@@ -68,20 +65,18 @@ if bull
 if bear
 
     last_signal := 'sell'
-    dist = atr * tp_sl_multi
-    tp_dist = rrr == '2:3' ? dist / 2 * 3 : rrr == '1:2' ? dist * 2 : rrr == '1:4' ? dist * 4 : dist
+    dist = atr * tp_sl_multirrr == '1:2' ? dist * 2 : rrr == '1:4' ? dist * 4 : dist
     tp := round_up(close - tp_dist, tp_sl_prec)
     sl := round_up(close + dist, tp_sl_prec)
 
     if label_style == 'text bubble'
-        label.new(bear ? bar_index : na, high, 'SELL', color=sell_label_color, style=label.style_label_down, textcolor=label_text_color, size=label_size)
+        label.new(bearigh, 'SELL', color=sell_label_color, style=label.style_label_down, textcolor=label_text_color, size=label_size)
     else if label_style == 'triangle'
         label.new(bear ? bar_index : na, high, 'SELL', yloc=yloc.abovebar, color=sell_label_color, style=label.style_triangledown, textcolor=TRANSPARENT, size=label_size)
     else if label_style == 'arrow'
         label.new(bear ? bar_index : na, high, 'SELL', yloc=yloc.abovebar, color=sell_label_color, style=label.style_arrowdown, textcolor=TRANSPARENT, size=label_size)
 
-    label.new(show_tp_sl ? bar_index : na, low, 'TP: ' + str.tostring(tp) + '\nSL: ' + str.tostring(sl), yloc=yloc.price, color=color.gray, style=label.style_label_up, textcolor=label_text_color)
+    label.new(show_tlow, 'TP: ' + str.tostring(tp) + '\nSL: ' + str.tostring(sl),  color=color.gray, style=label.style_label_up, textcolor=label_text_color)
 
-alertcondition(bull or bear, 'BUY & SELL Signals', 'New signal!')
-alertcondition(bull, 'BUY Signals (Only)', 'New signal: BUY')
-alertcondition(bear, 'SELL Signals (Only)', 'New signal: SELL')
+alertcondition(bull or b Signals', 'New signal!')
+alertcondition(bull, 'BU, 'New sig', 'New signal: SELL')
